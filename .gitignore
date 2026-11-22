@@ -1,0 +1,14 @@
+# история и данные сервера никогда не публикуем
+chat_history.jsonl
+server.py
+*.bak
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# системное
+.DS_Store
+Thumbs.db
