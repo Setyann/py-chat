@@ -8,7 +8,7 @@ import urllib.request
 from datetime import date, datetime, timedelta
 
 from PySide6.QtCore import (QByteArray, QSize, Qt, QThread, QTimer, QVariantAnimation,
-                            QEasingCurve, Signal, QWIDGETSIZE_MAX)
+                            QEasingCurve, Signal)
 from PySide6.QtGui import QColor, QIcon, QPainter, QPixmap
 from PySide6.QtSvg import QSvgRenderer
 from PySide6.QtWidgets import (
@@ -16,7 +16,7 @@ from PySide6.QtWidgets import (
     QPushButton, QScrollArea, QVBoxLayout, QWidget,
 )
 
-CLIENT_VERSION = "1.2"  # должна совпадать с version.txt в репозитории
+CLIENT_VERSION = "1.0"  # должна совпадать с version.txt в репозитории
 SERVER_IP = "26.182.197.26"  # IP ноутбука из окна Radmin VPN
 PORT = 5000
 
@@ -26,6 +26,7 @@ BRANCH = "main"
 RAW_URL = f"https://raw.githubusercontent.com/{GITHUB_USER}/{GITHUB_REPO}/{BRANCH}"
 APP_FILE = os.path.abspath(__file__)
 APP_DIR = os.path.dirname(APP_FILE)
+MAX_WIDGET_HEIGHT = 16777215  # значение QWIDGETSIZE_MAX из Qt (в Python этой константы нет)
 
 EMOJIS = ["😀", "😂", "😍", "👍", "🔥", "😎", "🎉", "😢", "❤️", "🤔", "🙌", "😅", "🥳", "🤯", "💯", "😜", "🤩", "😇", "😴", "🤪", "😡", "🤬", "🥺", "😱", "🤤", "😷", "🤮", "🤢", "🤑", "🤠", "👻", "💀", "☠️", "👽", "🤖", "🎃", "🦄", "🐶", "🐱", "🐼", "🐨", "🦊", "🐸", "🐵", "🐔", "🦉", "🦋", "🌸", "🌞", "🌈", "⚡", "❄️", "🔥", "💧", "🌊", "🍎", "🍕", "🍔", "🍟", "🍣", "🍩", "🍪", "☕", "🍺", "🍷", "🍹", "🍾", "🎂", "🎁", "🎈", "🎀", "🎵", "🎶", "🎤", "🎧", "🎸", "🎹", "🥁", "🏆", "🏅", "🥇", "🥈", "🥉", "⚽", "🏀", "🏈", "⚾", "🎾", "🏐", "🏓", "🏸", "🥊", "🥋", "⛳", "🏹", "🎣", "🚴‍♂️", "🏋️‍♀️", "🤸‍♂️", "🤼‍♀️", "🤽‍♂️", "🤾‍♀️", "🏊‍♂️", "🧗‍♀️", "🏄‍♂️", "🛹", "⛷️", "🏂", "🪂", "🚣‍♀️", "🛶", "🛥️", "🚤", "⛴️", "🛳️", "✈️", "🚁", "🚀", "🛸"]
 
@@ -253,7 +254,7 @@ class Bubble(QWidget):
 
         def done():
             self.setMinimumHeight(0)
-            self.setMaximumHeight(QWIDGETSIZE_MAX)
+            self.setMaximumHeight(MAX_WIDGET_HEIGHT)
 
         anim.valueChanged.connect(step)
         anim.finished.connect(done)
